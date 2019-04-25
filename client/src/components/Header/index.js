@@ -2,31 +2,34 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
-import { AuthButton } from './styles'
+import { AuthButton, Credits } from './styles'
+import Payments from '../Payments'
 
 
 
 
-class Index extends Component {
+class Header extends Component {
 
   renderContent = () => {
-    const { isLoggedIn } = this.props;
-    switch (isLoggedIn) {
+    const { auth } = this.props;
+    switch (auth) {
       case null:
         return;
       case false:
         return (
-          <AuthButton href="/auth/google">LOGIN WITH GOOGLE</AuthButton>
+          <AuthButton href="/auth/google">Login With Google</AuthButton>
         )
       default:
-        return (
-          <AuthButton href="/api/logout">LOGOUT</AuthButton>
-        )
+        return [
+          <Payments key='1' />,
+          <Credits key='2'>Credits: {auth.credits}</Credits>,
+          <AuthButton key='3' href="/api/logout">Logout</AuthButton>
+        ]
     }
   };
 
   render() {
-    const { isLoggedIn } = this.props
+    const { auth } = this.props
 
     return (
       <div style={{ flexGrow: 1 }}>
@@ -34,7 +37,7 @@ class Index extends Component {
           <Toolbar>
             <Typography variant="h6" color="inherit" style={{ flexGrow: 1 }}>
               <Link
-                to={isLoggedIn ? '/surveys' : '/'}
+                to={auth ? '/surveys' : '/'}
                 style={{ textDecoration: 'none', color: 'white' }}>
                 Email-Feedback
               </Link>
@@ -48,9 +51,9 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.account.isLoggedIn
+  auth: state.account.auth
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Index)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

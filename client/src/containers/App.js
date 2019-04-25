@@ -3,9 +3,9 @@ import { connect } from "react-redux"
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import Header from "../components/Header"
 import Landing from "./Landing"
+import Dashboard from "./Dashboard"
 import { fetchUser } from "../redux/actions"
 
-const Dashboard = () => <h2>Dashboard</h2>
 const SurveyNew = () => <h2>SurveyNew</h2>
 
 
@@ -38,7 +38,7 @@ class App extends Component {
 }
 
 
-const mapStateToProps = state => ({})
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = {
   fetchUser

@@ -3,16 +3,14 @@ import update from 'update-js'
 
 
 const initialState = {
-  isLoading: false,
-  isLoggedIn: null,
-}
+  auth: null,
+};
 
 
 export const fetchUser = (state, { payload }) =>
   update.assign(state, {
-    isLoggedIn: payload || false,
-  })
-
+    auth: payload || false,
+  });
 
 
 
