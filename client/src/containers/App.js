@@ -5,16 +5,14 @@ import Header from "../components/Header"
 import Landing from "./Landing"
 import Dashboard from "./Dashboard"
 import { fetchUser } from "../redux/actions"
-
-const SurveyNew = () => <h2>SurveyNew</h2>
-
+import Splash from "../components/Splash";
+import NewSurvey from "./NewSurvey";
 
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser()
   }
-
 
   render() {
     return (
@@ -24,9 +22,10 @@ class App extends Component {
             <Header />
             <Switch>
 
-              <Route exact path="/" component={Landing} />
+              <Route exact path="/" component={Splash} />
+              <Route exact path="/landing" component={Landing} />
               <Route exact path="/surveys" component={Dashboard} />
-              <Route path="/surveys/new" component={SurveyNew} />
+              <Route path="/surveys/new" component={NewSurvey} />
 
               <Redirect exact from="*" to="/" />
             </Switch>
@@ -37,11 +36,8 @@ class App extends Component {
   }
 }
 
-
-const mapStateToProps = () => ({})
-
 const mapDispatchToProps = {
   fetchUser
-}
+};
 
 export default connect(null, mapDispatchToProps)(App)
